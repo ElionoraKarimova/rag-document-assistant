@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from app.llm import ask_llm
+from app.rag import index_document, ask_with_rag
 
 app = FastAPI(title="RAG Document Assistant")
 
@@ -19,3 +20,12 @@ def ask(question: str):
     
     answer = ask_llm(question)
     return {"question": question, "answer": answer}
+
+@app.get("/index")
+def index(filename: str):
+    file_path = f"documents/{filename}"
+    chunks_count = index_document(file_path)
+    return {"filename": filename, "chunks_indexed": chunks_count}
+@app.get("/rag")
+def rag(question: str):
+    return ask_with_rag(question)
