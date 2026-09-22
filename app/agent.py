@@ -32,7 +32,7 @@ tools = [
 ]
 
 
-prompt = PromptTemplate.from_template("""Ответь на вопрос как можно лучше. У тебя есть доступ к инструментам:
+prompt = PromptTemplate.from_template("""Answer the following question as best you can. Respond in the same language as the question, in a friendly and conversational tone. You have access to these tools:
 
 {tools}
 

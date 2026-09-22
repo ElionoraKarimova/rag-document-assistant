@@ -9,13 +9,16 @@ from fastapi import Depends
 from fastapi import UploadFile, File
 import shutil
 import os
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI(title="RAG Document Assistant")
 Base.metadata.create_all(bind=engine)
 
-@app.get("/")
+@app.get("/", response_class=HTMLResponse)
 def root():
-    return {"message": "RAG Document Assistant is running!"}
+    with open("static/index.html", "r", encoding="utf-8") as f:
+        return f.read()
 
 
 @app.get("/health")

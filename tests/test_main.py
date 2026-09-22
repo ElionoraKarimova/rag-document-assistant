@@ -7,7 +7,7 @@ client = TestClient(app)
 def test_root():
     response = client.get("/")
     assert response.status_code == 200
-    assert "message" in response.json()
+    assert "RAG Document Assistant" in response.text
 
 
 def test_health():
@@ -58,7 +58,7 @@ def test_history_saves_query():
     response = client.get("/history")
     assert response.status_code == 200
     history = response.json()
-    assert len(history) > 0  
+    assert len(history) > 0
     assert "question" in history[0]
     assert "answer" in history[0]
     assert "mode" in history[0]
