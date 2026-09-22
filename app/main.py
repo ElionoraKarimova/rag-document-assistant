@@ -6,6 +6,9 @@ from app.database import engine, get_db
 from app.models import Base, QueryHistory
 from sqlalchemy.orm import Session
 from fastapi import Depends
+from fastapi import UploadFile, File
+import shutil
+import os
 
 app = FastAPI(title="RAG Document Assistant")
 Base.metadata.create_all(bind=engine)
@@ -68,3 +71,18 @@ def history(db: Session = Depends(get_db)):
         }
         for r in records
     ]
+@app.post("/upload")
+def upload_document(file: UploadFile = File(...)):
+    os.makedirs("documents", exist_ok=True)
+
+    file_path = f"documents/{file.filename}"
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    chunks_count = index_document(file_path)
+
+    return {
+        "filename": file.filename,
+        "status": "uploaded and indexed",
+        "chunks_indexed": chunks_count,
+    }
