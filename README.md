@@ -9,12 +9,12 @@ Everything runs locally through Ollama (no API keys, no data leaving your machin
 ### Chat interface
 A clean, futuristic chat UI where you can ask questions and switch between RAG and Agent modes.
 
-![Chat interface](screenshots/chat-example.png)
+![Chat interface](images/chat-example.png)
 
 ### Interactive API documentation (Swagger)
 FastAPI automatically generates interactive documentation for every endpoint.
 
-![Swagger API docs](screenshots/swagger.png)
+![Swagger API docs](images/swagger.png)
 
 ## What it does
 
